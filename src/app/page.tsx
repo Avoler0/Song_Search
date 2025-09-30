@@ -1,24 +1,8 @@
-import fs from 'fs/promises'; // 파일 시스템 import
-import path from 'path';
+import {getSongs, Song} from "@/app/lib/data";
 import SongList from "@/app/components/song/SongList";
 
-export type Song =  {
-    id: string,
-    title: string,
-    artist: string,
-    lyricist: string,
-    composer: string,
-    tjNumber: string,
-    kyNumber: string,
-    youtubeUrl: string,
-    isBookmarked: boolean,
-}
-
-
 export default async function Home() {
-    const filePath = path.join(process.cwd(), 'public', 'songs.json');
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    const songs:Song[] = JSON.parse(fileContents);
+    const songs:Song[] = await getSongs();
 
     return (
         <div className="bg-bg-main media-w">

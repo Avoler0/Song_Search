@@ -32,7 +32,7 @@ export default function SearchPanel({ isSearchOpen } : any){
 
     return (
         <div
-            className={`fixed top-14 z-10 bg-surface py-3 px-4 shadow-md transition-all visible' duration-300 ease-in-out w-full
+            className={`fixed left-1/2 top-14 -translate-x-1/2 z-10 bg-surface py-3 px-4 media-w shadow-md transition-all visible' duration-300 ease-in-out w-full
                 ${isSearchOpen ? 
                 "opacity-100 translate-0" :
                 "opacity-0 -translate-y-full"
@@ -43,7 +43,7 @@ export default function SearchPanel({ isSearchOpen } : any){
                 <div className="border-r border-outline relative">
                     <button
                         type="button"
-                        onClick={prev => setIsSelectOpen(prev => !prev) }
+                        onClick={() => { setIsSelectOpen(prev => !prev); }}
                         className="h-full px-3 font-medium text-content-primary text-xs text-nowrap"
                     >
                         {selected === 'all' ? '전체' : selected === 'song' ? '노래' : '가수' }
