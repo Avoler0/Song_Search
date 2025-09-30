@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎤 프로젝트: K-Karaoke Global Search
 
-## Getting Started
+근처 코인 노래방 또는 일반 노래방에서 **외국어 곡**을 찾을 때 겪는 어려움을 해소하고, **TJ(태진)**와 **KY(금영)**의 방대한 반주 데이터를 한국어/영어 기반으로 검색할 수 있도록 통합 제공하는 크로스 플랫폼 검색 솔루션입니다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📌 프로젝트 소개 및 필요성
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎯 핵심 목표
+한국 노래방 환경에서 **한국어 또는 영어가 아닌 외국어 곡(일본어, 중국어 등)**을 부르고자 할 때, 가사 또는 곡명을 읽지 못해 겪는 검색의 장벽을 완전히 제거합니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 💡 문제 정의 (Pain Point)
+사용자들은 외국의 노래를 부를 때 외워서 부르거나 가사에 영어로 작게 표기한것을 보고 따라 부르기도 합니다, 하지만 일본어나 중국어 등 글자를 알아볼 수 없는 사람들은 노래를 검색할 때 불편함을 겪습니다 노래방 기기의 검색에서 영어 또한 한국어로 검색해도 잘 나오지 않거나 한정된 검색기능을 갖고 있는 기기들이 있어 불편함이 발생합니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✨ 해결책 (Value Proposition)
+TJ와 KY 공식 홈페이지의 반주 검색 데이터를 크롤링하여 **모든 외국어 곡명/가수명을 한국어 및 영어로 매칭**하여 검색할 수 있는 통합 검색 환경을 제공함으로써, 사용자에게 **가장 쉽고 편리한** 노래 검색 경험을 선사합니다.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ 주요 기능
+| 기능 카테고리 | 상세 내용 |
+| :--- | :--- |
+| **통합 검색** | **전체** (노래명 + 가수명), **노래만 검색**, **가수만 검색**의 세 가지 모드를 제공합니다. |
+| **맞춤 편의 기능** | 즐겨찾는 노래를 저장할 수 있는 **노래 북마크 기능** 및 **로그인 기능**을 제공하여 개인화된 환경을 지원합니다. |
+| **인기 순위** | TJ 및 KY 노래방의 **실시간/일간/주간 인기 순위**를 통합하여 보여줍니다. |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠 기술 스택
 
-## Deploy on Vercel
+| 역할 | 기술 스택 | 설명 |
+| :--- | :--- | :--- |
+| **Frontend/Backend** | **Next.js** | React 기반의 고성능 풀스택 프레임워크로, 빠르고 효율적인 렌더링을 제공합니다. |
+| **Language** | **TypeScript** | 정적 타입 시스템을 도입하여 코드의 안정성과 유지보수성을 극대화합니다. |
+| **Data Scraping** | **Python** | TJ(태진)와 KY(금영)의 반주 데이터를 안정적으로 수집하고 가공하는 데 사용됩니다. |
+| **Database** | (추후 확정) | 크롤링된 대용량 노래 데이터를 저장하고 관리합니다. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 사용 예시 (User Flow)
+
+1.  웹 페이지를 열고 곧바로 검색창에 **한국어** 또는 **영어**로 노래명이나 가수명을 입력합니다.
+2.  입력된 검색어에 해당하는 TJ/KY의 외국 곡 반주 번호 및 정보를 즉시 확인합니다.
+3.  자주 부르는 노래는 **북마크**에 저장하여 다음에 더 빠르게 찾습니다.
+
+---
+
+## 🚧 개발 진행 상황 및 계획
+
+### ✅ 완료
+- [x] Next.js 초기 프로젝트 셋업 및 TypeScript 적용
+- [x] 기본 웹 페이지 UI/UX 구성 (검색창 및 결과 표시 레이아웃)
+
+### 🛠️ 진행 중
+- [ ] Python을 활용한 크롤링 환경 구축 및 테스트 (TJ/KY 대상)
+
+### ⏳ 진행 예정
+- [ ] **DB 구축 및 연동:** 크롤링된 데이터를 저장할 데이터베이스 확정 및 Next.js와의 API 연동
+- [ ] **통합 크롤링 로직 완성:** TJ와 KY 데이터 수집 및 정제 로직 최종 통합 (중복 및 누락 최소화)
+- [ ] **기본 검색 기능 구현:** 전체, 노래만, 가수만 검색 API 구축 및 FE 연동
+- [ ] **인기 순위 기능 구현:** TJ/KY 공식 홈페이지의 인기 순위 크롤링 및 서비스에 표시
+- [ ] **노래 번호 자동 복사:** 노래 번호를 클릭시 자동으로 클립보드에 저장
+- [ ] **초성 검색**: 한국어 사용자들이 노래방 기기에서 익숙한 초성 검색 방식을 웹에서도 지원하여 사용자 친화성을 극대화합니다.
+- [ ] **최근 검색 기록 저장**: 로그인 사용자에 한하여 최근 검색 히스토리를 저장하여 재검색 시의 반복 과정을 줄입니다.
+
+### 🚀 향후 확장 계획
+- [ ] **북마크 및 로그인 기능 구현:** 사용자별 맞춤형 서비스 제공을 위한 인증 및 DB 연동
+- [ ] **다국어 입력 최적화:** 일본어, 중국어 원어 입력 시에도 정확한 결과를 빠르게 제공하도록 검색 엔진 고도화
+- [ ] **실시간 데이터 반영:** 크롤링 주기를 최적화하여 반주 데이터의 최신성을 유지
