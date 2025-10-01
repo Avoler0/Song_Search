@@ -1,8 +1,10 @@
 import time
 import random
+import datetime
 
 # 로그 파일 경로 설정
-LOG_FILE_PATH = 'last_crawler.txt'
+start_time_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+LOG_FILE_PATH = f'crawl_log_{start_time_str}.txt'
 
 def _load_last_state():
     """마지막 크롤링 지점(키워드, 페이지)을 파일에서 읽어옵니다."""

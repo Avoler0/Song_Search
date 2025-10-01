@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from supabase import create_client, Client
+from typing import Optional, Dict, Any
 import os
 
 load_dotenv()
@@ -9,6 +10,20 @@ key = os.getenv('SUPABASE_KEY')
 
 supabase = create_client(url,key)
 
+def create_song_upsert_payload(song_data: Dict[str, Any], artist_id: int, current_keyword) -> Dict[str, Any]:
+
+    payload = {
+        "title": song_data.get('title'),
+        "artist_id": artist_id,
+        "song_no_tj": song_data.get('number'),
+        "lyricist": song_data.get('lyricist'),
+        "composer": song_data.get('composer'),
+        "cr_keyword": current_keyword,
+        "youtube_link": song_data.get("youtube_link")
+    }
+
+    # None 값이 아닌 필드만 추출하여 반환 (MERGE 전략의 핵심)
+    return {k: v for k, v in payload.items() if v is not None}
 
 def insertArtist(artist):
     try:
@@ -18,34 +33,24 @@ def insertArtist(artist):
             .execute()
         )
 
-        print('아티스트 넣었음')
         return response.data[0]['id']
 
     except Exception  as err:
-        print('아티스트 인서트 오류',err)
+        print('insertArtist Error :',err)
         return None
 
-def insertSongTj(data):
+def insertSongTj(data,keyword):
 
     try:
         artist_id = insertArtist(data['artist'])
-        
-        print('송 넣자')
+
+        upsert_data = create_song_upsert_payload(data, artist_id,keyword)
         response = (
             supabase.table('songs')
-            .upsert({
-                "song_no_tj": data['number'],
-                "title": data['title'],
-                "lyricist": data['lyricist'],
-                "composer": data['composer'],
-                "youtube_link": data['youtube_link'],
-                "artist_id": artist_id
-            })
+            .upsert(upsert_data, on_conflict='title,artist_id')
             .execute()
         )
 
-        print('송 너ㅗㅎ엇다!!!',response)
-
     except Exception  as err:
-        print('송 인서트 오류',err)
+        print('insertSongTj Error :',err)
         return None

@@ -48,7 +48,6 @@ def _parse_and_structure_songs(html):
                 "youtube_link":youtube_link
             })
 
-    print('노래 페이지 길이',len(songs_list))
     return songs_list
 
 # 검색결과 페이지 크롤링
@@ -67,7 +66,7 @@ def crawl_bulk_by_artist():
                 break
 
             for song in songs:
-                db.insertSongTj(song)
+                db.insertSongTj(song,keyword)
 
 
             log._save_current_state(keyword,page)
