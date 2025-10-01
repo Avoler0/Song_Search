@@ -1,78 +1,80 @@
-import requests
-from bs4 import BeautifulSoup as bs
-from ... import config
 import time
+import random
+import requests
+from ... import config
+from bs4 import BeautifulSoup as bs
+from crawler.src.database import db_manager as db
+from . import crawler_log as log
 
+# 검색결과 HTML 변환
 def _get_tj_html(search_keyword,pageNo):
     base_url = f"https://www.tjmedia.com/song/accompaniment_search?pageNo={pageNo}&pageRowCnt=15&strSotrGubun=ASC&strSortType=&nationType=&strType=2&searchTxt={search_keyword}"
-
     response = requests.get(base_url).text
 
-    html = bs(response, 'html.parser')
+    return bs(response, 'html.parser')
 
-    return html
-
+# 검색결과 노래 리스트
 def _parse_and_structure_songs(html):
     songs_list = []
     chart_list = html.select_one('.chart-list-area')
 
-
     if chart_list:
-
+        no_data    = chart_list.select_one('.no-date')
         list_items = chart_list.find_all('li', recursive=False)
-        # ... TJ 노래 목록 HTML을 분석하는 코드 ...
+
+        if no_data:
+            return []
 
         for item in list_items:
             top = item.select_one('.grid-container.top')
 
             if top:
                 continue
+            youtube_element = item.select_one('.grid-item.youtube > a')
 
-            number = item.select_one('.grid-item.pos-type .count span.num2').get_text().strip()
-            title = item.select_one('.grid-item.title3 .flex-box > p > span').get_text().strip()
-            singer = item.select_one('.grid-item.singer > p > span').get_text().strip()
+            number   = item.select_one('.grid-item.pos-type .count span.num2').get_text().strip()
+            title    = item.select_one('.grid-item.title3 .flex-box > p > span').get_text().strip()
+            artist   = item.select_one('.grid-item.singer > p > span').get_text().strip()
             lyricist = item.select_one('.grid-item.title5 > p > span').get_text().strip()
             composer = item.select_one('.grid-item.title6 > p > span').get_text().strip()
+            youtube_link = youtube_element.get_text().strip() if youtube_element else None
 
             songs_list.append({
-              "number": number,
-              "title": title,
-              "singer": singer,
-              "lyricist": lyricist,
-              "composer": composer
+                "number": number,
+                "title": title,
+                "artist": artist,
+                "lyricist": lyricist,
+                "composer": composer,
+                "youtube_link":youtube_link
             })
-#             print("노래 리스트 ------------")
 
+    print('노래 페이지 길이',len(songs_list))
+    return songs_list
 
-    print(songs_list)
-    pass
-
-
-# ----------------------------------------------------
-
+# 검색결과 페이지 크롤링
 def crawl_bulk_by_artist():
+
     for keyword in config.ALL_KEYWORDS:
-        html = _get_tj_html(keyword,1)
-        songs = _parse_and_structure_songs(html)
+        page = 1
 
-        time.sleep(100)
-#             page = 1
-#             while True:
-#                 print(f"Crawling keyword '{keyword}', page {page}...")
-#                 html = _get_tj_html(keyword, page_no=page)
-#
-#                 if not html or _is_last_page(html):
-#                     print(f"Finished crawling for keyword '{keyword}'.")
-#                     break # 루프 탈출
-#
-#                 # 여기에 HTML을 분석하고 DB에 저장하는 로직을 넣습니다.
-#                 # songs = _parse_and_structure_songs(html)
-#                 # db_manager.save_songs(songs) # 바로 db에 넣기
-#
-#                 page += 1 # 다음 페이지로
-#                 time.sleep(1) # 서버에 부담을 주지 않기 위해 잠시 대기
+        while True:
+            print('반복문 While :',keyword,page)
 
-#         pass
+            html  = _get_tj_html(keyword,page)
+            songs = _parse_and_structure_songs(html)
+
+            if len(songs) == 0:
+                break
+
+            for song in songs:
+                db.insertSongTj(song)
+
+
+            log._save_current_state(keyword,page)
+            page += 1
+            time.sleep(random.uniform(2, 5))
+
+        time.sleep(random.uniform(1, 3))
 
 # def crawl_latest_songs():
 #     """업무 2: 최신곡 업데이트"""

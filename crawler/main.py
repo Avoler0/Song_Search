@@ -1,6 +1,11 @@
 from crawler.src.crawlers import tj_crawler as tj_expert
 # from crawler.src.crawlers import ky_crawler as ky_expert
 
+
+
+import sys
+print(sys.executable)
+
 if __name__ == "__main__":
     print("메인 컨트롤러를 시작합니다.")
 
