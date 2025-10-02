@@ -23,10 +23,10 @@ def create_song_upsert_payload(song_data: Dict[str, Any], artist_id: int, curren
     }
 
     if source == 'TJ':
-            payload['song_no_tj'] = song_data.get('number')
-        elif source == 'KY':
-            payload['song_no_ky'] = song_data.get('number')
-            payload['release_date'] = song_data.get('release')
+        payload['song_no_tj'] = song_data.get('number')
+    elif source == 'KY':
+        payload['song_no_ky'] = song_data.get('number')
+        payload['release_date'] = song_data.get('release')
 
     # None 값이 아닌 필드만 추출하여 반환 (MERGE 전략의 핵심)
     return {k: v for k, v in payload.items() if v is not None}
