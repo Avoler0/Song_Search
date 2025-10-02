@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from supabase import create_client, Client
 from typing import Optional, Dict, Any
 import os
+import datetime
 
 load_dotenv()
 
@@ -10,7 +11,7 @@ key = os.getenv('SUPABASE_KEY')
 
 supabase = create_client(url,key)
 
-def create_song_upsert_payload(song_data: Dict[str, Any], artist_id: int, current_keyword, source: str) -> Dict[str, Any]:
+def create_song_upsert_payload(source,song_data, artist_id, current_keyword):
 
     payload = {
         "title": song_data.get('title'),
@@ -25,10 +26,12 @@ def create_song_upsert_payload(song_data: Dict[str, Any], artist_id: int, curren
     if source == 'TJ':
         payload['song_no_tj'] = song_data.get('number')
     elif source == 'KY':
-        payload['song_no_ky'] = song_data.get('number')
-        payload['release_date'] = song_data.get('release')
+        release_obj = datetime.datetime.strptime(song_data.get('release'), '%Y.%m')
+        release_format = release_obj.strftime('%Y-%m-01')
 
-    # None 값이 아닌 필드만 추출하여 반환 (MERGE 전략의 핵심)
+        payload['song_no_ky'] = song_data.get('number')
+        payload['release'] = release_format
+
     return {k: v for k, v in payload.items() if v is not None}
 
 def insertArtist(artist):
@@ -45,18 +48,20 @@ def insertArtist(artist):
         print('insertArtist Error :',err)
         return None
 
-def insertSongTj(data,keyword,source):
+def insertSong(source,data,keyword):
 
     try:
         artist_id = insertArtist(data['artist'])
 
-        upsert_data = create_song_upsert_payload(data, artist_id,keyword,source)
+        upsert_data = create_song_upsert_payload(source,data, artist_id,keyword)
         response = (
             supabase.table('songs')
             .upsert(upsert_data, on_conflict='title,artist_id')
             .execute()
         )
 
+        print('데이터 저장',response)
+
     except Exception  as err:
-        print('insertSongTj Error :',err)
+        print('insertSong Error :',err)
         return None

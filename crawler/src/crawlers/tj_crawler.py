@@ -66,14 +66,14 @@ def crawl_tj_artist():
                 break
 
             for song in songs:
-                db.insertSongTj(song,keyword,'TJ')
+                db.insertSong('TJ',song,keyword)
 
 
             log._save_current_state(keyword,page)
             page += 1
-            time.sleep(random.uniform(2, 5))
+            time.sleep(1)
 
-        time.sleep(random.uniform(1, 3))
+        time.sleep(1)
 
 # def crawl_latest_songs():
 #     """업무 2: 최신곡 업데이트"""

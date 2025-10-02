@@ -6,7 +6,7 @@ import SearchPanel from "@/app/components/search/SearchPanel";
 
 
 export default function HeaderLayout(){
-    const [isSearchOpen, setIsSearchOpen] = React.useState(true);
+    const [isSearchOpen, setIsSearchOpen] = React.useState(false);
 
     return(
         <>

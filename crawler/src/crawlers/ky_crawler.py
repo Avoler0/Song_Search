@@ -22,8 +22,6 @@ def _parse_and_structure_songs(html):
         print('빈거 리턴')
         return []
 
-
-
     if chart_list:
         list_items = chart_list.find_all(class_='search_chart_list', recursive=False)
         for item in list_items[1:]:
@@ -35,7 +33,6 @@ def _parse_and_structure_songs(html):
             lyricist = item.select_one('.search_chart_wrt').get_text().strip()
             composer = item.select_one('.search_chart_cmp').get_text().strip()
             release  = item.select_one('.search_chart_rel').get_text().strip()
-
 
             songs_list.append({
                 "number"  : number,
@@ -51,30 +48,25 @@ def _parse_and_structure_songs(html):
 # 검색결과 페이지 크롤링
 def crawl_ky_artist():
 
-    html  = _get_tj_html('가',1)
-    songs = _parse_and_structure_songs(html)
+    for keyword in config.ALL_KEYWORDS:
+        page = 1
 
-#     for keyword in config.ALL_KEYWORDS:
-#         page = 1
-#
-#         while True:
-#             print('반복문 While :',keyword,page)
-#
-#             html  = _get_tj_html(keyword,page)
-#             songs = _parse_and_structure_songs(html)
-#
-#             if len(songs) == 0:
-#                 break
-#
-#             for song in songs:
-#                 db.insertSongTj(song,keyword)
-#
-#
-#             log._save_current_state(keyword,page)
-#             page += 1
-#             time.sleep(random.uniform(2, 5))
-#
-#         time.sleep(random.uniform(1, 3))
+        while True:
+            html  = _get_tj_html(keyword,page)
+            songs = _parse_and_structure_songs(html)
+
+            if len(songs) == 0:
+                break
+
+            for song in songs:
+                db.insertSong('KY',song,keyword)
+
+
+            log._save_current_state(keyword,page)
+            page += 1
+            time.sleep(1)
+
+        time.sleep(1)
 
 # def crawl_latest_songs():
 #     """업무 2: 최신곡 업데이트"""

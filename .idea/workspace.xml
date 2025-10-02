@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed13d905-751e-4a5b-847b-73437d5abf93" name="Changes" comment="Feat: TJ 크롤러, 데이터베이스 입력">
+    <list default="true" id="ed13d905-751e-4a5b-847b-73437d5abf93" name="Changes" comment="Feat: db 데이터 임시 프론트 출력">
+      <change afterPath="$PROJECT_DIR$/webapp/public/assets/images/default_album.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/src/app/lib/supabse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/src/app/lib/type.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/src/app/service/songService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/src/crawlers/crawler_log.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/src/crawlers/crawler_log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler/src/crawlers/ky_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/src/crawlers/ky_crawler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crawler/src/crawlers/tj_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/src/crawlers/tj_crawler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crawler/src/database/db_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/src/database/db_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/app/api/crawl.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/app/components/layout/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/app/components/layout/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/app/components/song/SongCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/app/components/song/SongCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/app/lib/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +66,7 @@
     "Shell Script.clear.executor": "Run",
     "Shell Script.크롤러 메인.executor": "Run",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/dev/Song_Search/webapp/package.json",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -63,10 +75,11 @@
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
     "settings.editor.selected.configurable": "inlay.hints",
+    "ts.external.directory.path": "C:\\dev\\Song_Search\\webapp\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Shell Script.크롤러 메인">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="크롤러 메인" type="ShConfigurationType">
       <option name="SCRIPT_TEXT" value="py -m crawler.main" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -134,6 +147,8 @@
       <workItem from="1759305495524" duration="391000" />
       <workItem from="1759305921912" duration="6292000" />
       <workItem from="1759316831780" duration="1220000" />
+      <workItem from="1759364612077" duration="32000" />
+      <workItem from="1759405334872" duration="7626000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor: 폴더 구조 변경 (크롤러, 프론트 나눔)">
       <option name="closed" value="true" />
@@ -159,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759326991188</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Feat: 크롤러 로그 추가">
+      <option name="closed" value="true" />
+      <created>1759328162718</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759328162718</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +192,29 @@
     <MESSAGE value="Refactor: 폴더 구조 변경 (크롤러, 프론트 나눔)" />
     <MESSAGE value="Refactor: 크롤링 수정중 2" />
     <MESSAGE value="Feat: TJ 크롤러, 데이터베이스 입력" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: TJ 크롤러, 데이터베이스 입력" />
+    <MESSAGE value="Feat: 크롤러 로그 추가" />
+    <MESSAGE value="Feat: db 데이터 임시 프론트 출력" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: db 데이터 임시 프론트 출력" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/crawler/main.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/webapp/src/app/page.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/webapp/src/app/components/song/SongCard.tsx</url>
+          <line>2</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
