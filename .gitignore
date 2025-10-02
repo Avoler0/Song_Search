@@ -46,3 +46,6 @@ next-env.d.ts
 
 #etc
 last_crawler.txt
+workspace.xml
+.idea
+/.idea

@@ -51,7 +51,7 @@ def _parse_and_structure_songs(html):
     return songs_list
 
 # 검색결과 페이지 크롤링
-def crawl_bulk_by_artist():
+def crawl_tj_artist():
 
     for keyword in config.ALL_KEYWORDS:
         page = 1
@@ -66,7 +66,7 @@ def crawl_bulk_by_artist():
                 break
 
             for song in songs:
-                db.insertSongTj(song,keyword)
+                db.insertSongTj(song,keyword,'TJ')
 
 
             log._save_current_state(keyword,page)
