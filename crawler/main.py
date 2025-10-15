@@ -17,4 +17,4 @@ if __name__ == "__main__":
     ky_expert.crawl_ky_artist()
     print("KY 대규모 수집 작업을 완료했습니다.")
 
-    time()
+    sys.exit()
