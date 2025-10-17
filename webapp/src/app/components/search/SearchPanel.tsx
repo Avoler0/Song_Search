@@ -1,25 +1,42 @@
+'use client';
+
 import React from "react";
-import {HiXMark, HiMagnifyingGlass} from "react-icons/hi2";
+import {HiMagnifyingGlass} from "react-icons/hi2";
+import {SubmitHandler, useForm} from "react-hook-form";
+
+type SearchFormInputs = {
+    searchKeyword: string;
+}
 
 export default function SearchPanel({ isSearchOpen } : any){
+    const { register, handleSubmit } = useForm();
     const [selected, setSelected] = React.useState('all');
     const [isSelectOpen, setIsSelectOpen] = React.useState(false);
     const searchPlace = {
         all: '노래, 가수 검색',
-        singer: '가수 검색',
+        artist: '가수 검색',
         song: '노래 검색'
     }
 
-    function selectedOption(str:string){
-        setSelected(str);
+    function selectedOption(option:'all' | 'song' | 'artist'){
+        setSelected(option);
         setIsSelectOpen(false);
     }
 
     const selectRef = React.useRef<HTMLDivElement>(null);
 
+    async function onSubmit(data):SubmitHandler<SearchFormInputs>{
+        const keyword = data.searchKeyword.trim();
+
+        if(selected == 'song'){
+
+        }
+
+        console.log(keyword,selected,'서브밋');
+    }
+
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            console.log('핸들클릭',event)
             if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
                 setIsSelectOpen(false);
             }
@@ -62,19 +79,22 @@ export default function SearchPanel({ isSearchOpen } : any){
                                 onClick={() => selectedOption('song')}
                                 className="px-1.5 py-1 text-content-secondary text-left w-full hover:bg-gray-100 focus:bg-gray-100">노래</button></li>
                             <li><button
-                                onClick={() => selectedOption('singer')}
+                                onClick={() => selectedOption('artist')}
                                 className="px-1.5 py-1 text-content-secondary text-left w-full hover:bg-gray-100 focus:bg-gray-100">가수</button></li>
                         </ul>
                     </div>
                 </div>
-                <input
-                    type="text"
-                    placeholder={searchPlace[selected]}
-                    className="w-full py-1.5 px-4 text-sm text-content-secondary placeholder:text-content-tertiary focus:border-brand focus:outline-none"
-                />
-                <button className="text-content-secondary px-3" type="button">
-                    <HiMagnifyingGlass className="h-5 w-5" />
-                </button>
+                <form className="flex flex-1" onSubmit={handleSubmit(onSubmit)} >
+                    <input
+                        type="text"
+                        placeholder={searchPlace[selected]}
+                        {...register('searchKeyword')}
+                        className="w-full py-1.5 px-4 text-sm text-content-secondary placeholder:text-content-tertiary focus:border-brand focus:outline-none"
+                    />
+                    <button className="text-content-secondary px-3" type="submit">
+                        <HiMagnifyingGlass className="h-5 w-5" />
+                    </button>
+                </form>
             </div>
         </div>
     )
